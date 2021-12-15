@@ -14,22 +14,31 @@
 
 body {
   background-color: #fff;
-  background-image: url(./assets/bottom-image.png);
-  background-repeat: no-repeat;
-  background-position: bottom;
 }
 
 main {
   width: 100vw;
   height: 100vh;
   font-family: 'Poppins', sans-serif;
-  background-image: url(./assets/top-image.png);
-  background-repeat: no-repeat;
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 82px;
+}
+
+.top-image {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: -1;
+}
+
+.bottom-image {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  z-index: -1;
 }
 
 .section-1 {
