@@ -25,3 +25,33 @@ var x = setInterval(function () {
     document.getElementById('demo').innerHTML = 'EXPIRED'
   }
 }, 1000)
+
+var modal = document.getElementById('myModal')
+var btn = document.getElementById('myBtn')
+var span = document.getElementsByClassName('close')[0]
+
+btn.onclick = function () {
+  modal.style.display = 'block'
+}
+
+span.onclick = function () {
+  modal.style.display = 'none'
+}
+
+window.onclick = function (event) {
+  if (event.target == modal) {
+    modal.style.display = 'none'
+  }
+}
+
+const inputs = document.querySelectorAll('.input-field')
+
+inputs.forEach(inp => {
+  inp.addEventListener('focus', () => {
+    inp.classList.add('active')
+  })
+  inp.addEventListener('blur', () => {
+    if (inp.value != '') return
+    inp.classList.remove('active')
+  })
+})
