@@ -204,3 +204,16 @@ form label {
   margin-top: 20px;
   width: 100%;
 }
+span.error {
+  display: flex;
+  justify-content: right;
+  color: #ff3c3c;
+  font-size: 10px;
+  font-style: italic;
+  margin-top: 4px;
+}
+
+span.error.on {
+  color: #ff3c3c;
+  font-size: 10px;
+}

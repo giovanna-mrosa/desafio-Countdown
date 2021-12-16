@@ -1,3 +1,4 @@
+//COUNTER
 // Set the date we're counting down to
 var countDownDate = new Date('Jan 01, 2022 00:00:01').getTime()
 
@@ -26,15 +27,16 @@ var x = setInterval(function () {
   }
 }, 1000)
 
-var modal = document.getElementById('myModal')
-var btn = document.getElementById('myBtn')
-var span = document.getElementsByClassName('close')[0]
+//ABRIR E FECHAR MODAL
+let modal = document.getElementById('myModal')
+let btn = document.getElementById('myBtn')
+let spanClose = document.getElementsByClassName('close')[0]
 
 btn.onclick = function () {
   modal.style.display = 'block'
 }
 
-span.onclick = function () {
+spanClose.onclick = function () {
   modal.style.display = 'none'
 }
 
@@ -44,6 +46,11 @@ window.onclick = function (event) {
   }
 }
 
+window.onload = function () {
+  modal.style.display = 'none'
+}
+
+//EFEITO DOS INPUTS
 const inputs = document.querySelectorAll('.input-field')
 
 inputs.forEach(inp => {
@@ -55,3 +62,75 @@ inputs.forEach(inp => {
     inp.classList.remove('active')
   })
 })
+
+//MENSAGENS DE ERRO E SUBMIT FORM
+const fields = document.querySelectorAll('[required]')
+
+function ValidateField(field) {
+  function verifyErrors() {
+    let foundError = false
+
+    for (let error in field.validity) {
+      if (field.validity[error] && !field.validity.valid) {
+        foundError = error
+      }
+    }
+    return foundError
+  }
+
+  function customMessage(typeError) {
+    const messages = {
+      text: {
+        valueMissing: `Campo Nome não pode ficar vazio`
+      },
+      email: {
+        valueMissing: 'Campo E-mail não pode ficar vazio',
+        typeMismatch: 'Parece que não é um e-mail válido'
+      }
+    }
+    return messages[field.type][typeError]
+  }
+
+  function setCustomMessage(message) {
+    const spanError = field.parentNode.querySelector('span.error')
+
+    if (message) {
+      spanError.classList.add('on')
+
+      spanError.innerHTML = message
+    } else {
+      spanError.classList.remove('on')
+
+      spanError.innerHTML = ''
+    }
+  }
+
+  return function () {
+    const error = verifyErrors()
+
+    if (error) {
+      const message = customMessage(error)
+
+      setCustomMessage(message)
+    } else {
+      setCustomMessage()
+    }
+  }
+}
+
+function customValidation(event) {
+  const field = event.target
+  const validation = ValidateField(field)
+
+  validation()
+}
+
+for (field of fields) {
+  field.addEventListener('invalid', event => {
+    event.preventDefault()
+
+    customValidation(event)
+  })
+
+  field.addEventListener('blur', customValidation)
+}
